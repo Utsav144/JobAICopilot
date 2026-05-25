@@ -1,0 +1,11 @@
+.DS_Store
+.env
+node_modules
+npm-debug.log*
+storage
+data/browser-profiles
+data/browser-profiles/**
+public/Ui/.next
+public/Ui/node_modules
+jobpilot-ai-ui/.next
+jobpilot-ai-ui/node_modules

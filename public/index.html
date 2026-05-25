@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Job Application Agent</title>
+    <link rel="stylesheet" href="/styles.css?v=4" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>Menu</h2>
+      </div>
+      <ul class="sidebar-menu">
+        <li><a href="#" data-section="dashboard" class="active">Dashboard</a></li>
+        <li><a href="#" data-section="ai-copilot">AI Copilot Agent</a></li>
+      </ul>
+    </div>
+
+    <div class="main-content">
+      <div id="dashboard" class="section active">
+        <header class="topbar">
+          <div class="brand">
+            <div class="brandMark" aria-hidden="true">JA</div>
+            <div>
+            <h1>Job Application Agent</h1>
+            <p>Utsav Dwivedi · Senior .NET / AWS roles · Noida, Remote, Hybrid</p>
+            </div>
+          </div>
+          <button id="runDaily" type="button">Run Daily Search</button>
+        </header>
+
+        <main>
+          <div id="statusMessage" class="statusMessage" role="status" aria-live="polite"></div>
+          <section class="metrics" aria-label="Application metrics">
+            <article><span id="jobsCount">0</span><small>Jobs</small></article>
+            <article><span id="qualifiedCount">0</span><small>Qualified</small></article>
+            <article><span id="queuedCount">0</span><small>Queued</small></article>
+            <article><span id="submittedCount">0</span><small>Submitted</small></article>
+          </section>
+
+          <section class="panel schedulerPanel" aria-label="Scheduler status">
+            <div class="panelHeader">
+              <div>
+                <h2>Daily Scheduler</h2>
+                <small id="schedulerStatusText">Loading scheduler status...</small>
+              </div>
+              <button id="refreshScheduler" class="secondaryBtn" type="button">Refresh</button>
+            </div>
+            <div class="schedulerBody">
+              <div class="schedulerProgress">
+                <div class="schedulerProgressBar" id="schedulerProgressBar"></div>
+              </div>
+              <div class="schedulerStats">
+                <article><span id="schedulerTotal">0</span><small>Total submitted/applied</small></article>
+                <article><span id="schedulerGoal">20</span><small>Daily goal</small></article>
+                <article><span id="schedulerRemaining">20</span><small>Remaining</small></article>
+                <article><span id="schedulerRetry">10m</span><small>Retry every</small></article>
+              </div>
+              <div class="schedulerBreakdown">
+                <span id="schedulerStateBadge" class="badge badge-queued">Loading</span>
+                <span id="schedulerNormal">Normal submitted: 0</span>
+                <span id="schedulerNaukri">Naukri applied: 0</span>
+                <span id="schedulerDate">Date: --</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel sourcePanel">
+            <div class="panelHeader">
+              <div>
+                <h2>Naukri Automation</h2>
+                <small id="naukriStatus">Idle. Chrome will open and use your saved Naukri login session.</small>
+              </div>
+              <div class="buttonRow">
+                <button id="startNaukri" type="button">Start Naukri</button>
+                <button id="stopNaukri" class="dangerBtn" type="button">Stop Naukri</button>
+                <button id="continueNoticePeriod" class="successBtn" type="button">I selected 3 Months, Continue Naukri</button>
+                <button id="continueNaukri" class="secondaryBtn" type="button">Continue After Manual Action</button>
+                <button id="exportNaukriReport" class="secondaryBtn" type="button">Export Report</button>
+              </div>
+            </div>
+            <div class="sourceGrid automationGrid">
+              <form id="naukriFilterForm" class="sourceBox">
+                <label for="naukriTitles">Job titles</label>
+                <textarea id="naukriTitles" name="titles" rows="3">.NET Developer
+.NET Core Developer
+Senior .NET Developer
+Full Stack .NET Developer
+AWS .NET Developer</textarea>
+                <label for="naukriLocations">Locations</label>
+                <input id="naukriLocations" name="locations" value="Noida, Remote, Hybrid Noida, Delhi NCR" />
+                <div class="fieldGrid">
+                  <label>Experience min <input name="experienceMin" type="number" value="6" min="0" /></label>
+                  <label>Experience max <input name="experienceMax" type="number" value="9" min="0" /></label>
+                  <label>Salary min LPA <input name="salaryMinLpa" type="number" value="22" min="0" /></label>
+                  <label>Salary max LPA <input name="salaryMaxLpa" type="number" value="24" min="0" /></label>
+                </div>
+                <label for="naukriSkills">Required skills</label>
+                <textarea id="naukriSkills" name="skills" rows="4">.NET Core
+C#
+ASP.NET Core
+Web API
+SQL Server
+AWS
+Lambda
+S3
+JavaScript
+Angular
+Node.js</textarea>
+              </form>
+              <div class="sourceBox">
+                <h3>Session Report</h3>
+                <div class="reportMetrics">
+                  <article><span id="naukriScanned">0</span><small>Scanned</small></article>
+                  <article><span id="naukriApplied">0</span><small>Applied</small></article>
+                  <article><span id="naukriSkipped">0</span><small>Skipped</small></article>
+                  <article><span id="naukriManual">0</span><small>Manual</small></article>
+                </div>
+                <p>Stops only after scan 25+, skip 30+, and apply 10+ when enough safe matching Easy Apply jobs exist. If Naukri shows Access Denied, CAPTCHA, OTP, Google verification, or a custom question, automation pauses. Finish it in Chrome, then click continue.</p>
+              </div>
+            </div>
+            <div class="automationTables">
+              <div class="miniTable">
+                <h3>Applied</h3>
+                <div id="naukriAppliedRows" class="miniRows"></div>
+                <div id="naukriAppliedPager" class="pager"></div>
+              </div>
+              <div class="miniTable">
+                <h3>Skipped / Failed / Manual</h3>
+                <div id="naukriOtherRows" class="miniRows"></div>
+                <div id="naukriOtherPager" class="pager"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panelHeader">
+              <h2>Applications</h2>
+              <select id="statusFilter" aria-label="Filter status">
+                <option value="">All</option>
+                <option value="queued">Queued</option>
+                <option value="submitted">Submitted</option>
+                <option value="ready_for_review">Ready for review</option>
+                <option value="needs_human">Needs human</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Link</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="applicationsBody"></tbody>
+              </table>
+            </div>
+            <div id="applicationsPager" class="pager"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panelHeader">
+              <h2>Rejected Jobs</h2>
+              <small>Review reasons and queue manually</small>
+            </div>
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Role</th>
+                    <th>Source</th>
+                    <th>Reason</th>
+                    <th>Link</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="rejectedJobsBody"></tbody>
+              </table>
+            </div>
+            <div id="rejectedJobsPager" class="pager"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panelHeader">
+              <h2>Latest Jobs</h2><small id="sourceSummary"></small>
+            </div>
+            <div id="jobsList" class="jobsList"></div>
+            <div id="jobsPager" class="pager"></div>
+          </section>
+        </main>
+      </div>
+
+      <div id="ai-copilot" class="section">
+        <div class="ai-sidebar">
+          <div class="logo">🤖 AI Copilot Agent</div>
+          <button class="new-btn" onclick="newChat()">+ New Chat</button>
+          <input class="search" placeholder="Search..." oninput="searchChats(this.value)" />
+          <div id="history"></div>
+        </div>
+        <div class="ai-main">
+          <div class="ai-header">
+            <h2>AI Copilot Agent</h2>
+            <button id="autoRunAgent" class="auto-run-btn">Auto Run Agent</button>
+          </div>
+          <div id="chat" class="chat"></div>
+          <div class="input-area">
+            <input id="input" placeholder="Type message..." />
+            <button onclick="addUserEmoji()">😊</button>
+            <button onclick="sendMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/app.js?v=4" type="module"></script>
+  </body>
+</html>

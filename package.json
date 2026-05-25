@@ -1,0 +1,39 @@
+{
+  "name": "ai-job-application-agent",
+  "version": "1.0.0",
+  "description": "Policy-safe AI assisted job search, filtering, resume tailoring, recruiter outreach, and application tracking agent.",
+  "type": "module",
+  "main": "src/server/index.js",
+  "scripts": {
+    "dev": "node --watch src/server/index.js",
+    "start": "node src/server/index.js",
+    "migrate": "node scripts/migrate.js",
+    "seed": "node scripts/seed-profile.js",
+    "run:daily": "node src/modules/scheduler/runDaily.js",
+    "test": "node --test tests/*.test.js",
+    "brevo:details": "node scripts/brevo-details.js",
+    "email:test": "node scripts/send-test-report.js"
+  },
+  "dependencies": {
+    "@getbrevo/brevo": "^5.0.4",
+    "axios": "^1.16.0",
+    "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "helmet": "^8.0.0",
+    "node-cron": "^3.0.3",
+    "node-telegram-bot-api": "^0.67.0",
+    "nodemailer": "^8.0.7",
+    "openai": "^4.71.1",
+    "pg": "^8.13.1",
+    "pino": "^9.5.0",
+    "pino-http": "^10.3.0",
+    "playwright": "^1.48.2",
+    "zod": "^3.23.8"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
