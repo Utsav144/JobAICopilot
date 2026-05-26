@@ -18,7 +18,7 @@ const envSchema = z.object({
   OLLAMA_API_KEY: z.string().optional(),
   OLLAMA_MODEL: z.string().default('kimi-k2.6:cloud'),
   TELEGRAM_TOKEN: z.string().optional(),
-  SCHEDULER_ENABLED: booleanFromEnv.default(true),
+  SCHEDULER_ENABLED: booleanFromEnv.default(false),
   DAILY_CRON: z.string().default('0 9 * * *'),
   DAILY_SUBMITTED_GOAL: z.coerce.number().default(20),
   DAILY_GOAL_RETRY_MINUTES: z.coerce.number().default(10),
