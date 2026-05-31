@@ -1,6 +1,6 @@
 'use client';
 
-import DashboardShell from '../../../../components/dashboard-shell';
+import DashboardShell from '../../../components/dashboard-shell';
 import { FileText, Sparkles } from 'lucide-react';
 
 export default function ResumeBuilderPage() {

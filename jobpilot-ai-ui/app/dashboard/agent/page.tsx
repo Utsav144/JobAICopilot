@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { AlertTriangle, PlayCircle, Sparkles } from 'lucide-react';
-import DashboardShell from '../../../../components/dashboard-shell';
+import DashboardShell from '../../../components/dashboard-shell';
 
 export default function AgentPage() {
   return (

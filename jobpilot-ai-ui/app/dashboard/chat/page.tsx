@@ -1,7 +1,7 @@
 'use client';
 
-import DashboardShell from '../../../../components/dashboard-shell';
-import { ChatBubble, Send } from 'lucide-react';
+import DashboardShell from '../../../components/dashboard-shell';
+import { MessageCircle, Send } from 'lucide-react';
 
 export default function ChatPage() {
   return (
@@ -32,7 +32,7 @@ export default function ChatPage() {
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-soft">
           <div className="flex items-center gap-3 text-slate-950">
-            <ChatBubble className="h-5 w-5 text-sky-500" />
+            <MessageCircle className="h-5 w-5 text-sky-500" />
             <p className="font-semibold">Conversation queue</p>
           </div>
           <div className="mt-6 grid gap-4">
